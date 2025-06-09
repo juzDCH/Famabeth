@@ -1,0 +1,9 @@
+Installing 1 SDK 52.0.0 compatible native module using npm.
+> npm install
+
+added 25 packages, and audited 1419 packages in 8s
+
+127 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
