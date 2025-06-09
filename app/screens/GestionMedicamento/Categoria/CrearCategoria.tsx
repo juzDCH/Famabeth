@@ -12,38 +12,34 @@ import { supabase, supabaseUrl } from '../../../../supabaseClient';
 
 export default function CrearCategoria() {
   const [nombre, setNombre] = useState('');
-  const [descripcion, setDescripcion] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const router = useRouter();
   const [imagen, setImagen] = useState<string | null>(null);
-// ...existing code...
-  // ...existing code...
-const guardarCategoria = async () => {
-  if (nombre.trim() === '' || descripcion.trim() === '') {
-    alert('Todos los campos son obligatorios');
-    return;
-  }
 
-  try {
-    let urlImagen = '';
-    if (imagen) {
-      urlImagen = await subirImagenSupabase(imagen);
+  const guardarCategoria = async () => {
+    if (nombre.trim() === '') {
+      alert('El nombre es obligatorio');
+      return;
     }
-    await addDoc(collection(db, 'categoria'), {
-      nombre,
-      descripcion,
-      imagen_url: urlImagen,
-      fechaCreacion: new Date()
-    });
-    setNombre('');
-    setDescripcion('');
-    setImagen(null);
-    setModalVisible(true);
-  } catch (error) {
-    alert('No se pudo guardar la categoría');
-    console.error(error);
-  }
-};
+
+    try {
+      let urlImagen = '';
+      if (imagen) {
+        urlImagen = await subirImagenSupabase(imagen);
+      }
+      await addDoc(collection(db, 'categoria'), {
+        nombre,
+        imagen_url: urlImagen,
+        fechaCreacion: new Date()
+      });
+      setNombre('');
+      setImagen(null);
+      setModalVisible(true);
+    } catch (error) {
+      alert('No se pudo guardar la categoría');
+      console.error(error);
+    }
+  };
 
 const seleccionarImagen = async () => {
   const result = await ImagePicker.launchImageLibraryAsync({
@@ -86,13 +82,6 @@ const subirImagenSupabase = async (uri: string): Promise<string> => {
         placeholder="Nombre"
         value={nombre}
         onChangeText={setNombre}
-      />
- 
-      <TextInput
-        style={styles.input}
-        placeholder="Descripción"
-        value={descripcion}
-        onChangeText={setDescripcion}
       />
 
       {imagen && <Image source={{ uri: imagen }} style={{ height: 200, marginBottom: 10 }} />}

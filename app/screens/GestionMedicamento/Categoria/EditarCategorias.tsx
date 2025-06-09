@@ -27,7 +27,6 @@ export default function EditarCategoria() {
     }
   }, [categoria]);
  
-  // ...existing code...
   const seleccionarImagen = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -60,7 +59,7 @@ export default function EditarCategoria() {
     }
   };
 
-    // ...existing code...
+
   const actualizarCategoria = async () => {
     if (nombre.trim() === '' || descripcion.trim() === '') {
       Alert.alert('Error', 'Todos los campos son obligatorios');
